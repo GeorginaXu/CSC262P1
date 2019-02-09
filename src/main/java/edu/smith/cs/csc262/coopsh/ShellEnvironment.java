@@ -7,9 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import edu.smith.cs.csc262.coopsh.apps.Cat;
-import edu.smith.cs.csc262.coopsh.apps.Pwd;
-import edu.smith.cs.csc262.coopsh.apps.WordCount;
+import edu.smith.cs.csc262.coopsh.apps.*;
 import edu.smith.cs.csc262.coopsh.text.ShellParser;
 import edu.smith.cs.csc262.coopsh.text.Token;
 
@@ -70,7 +68,22 @@ public class ShellEnvironment {
 				throw new IllegalArgumentException("More than one argument to cd!");
 			executeChangeDir(args[0]);
 			return null;
-		// Agh!
+		case "echo":
+			return new Echo(this, args);
+		case "grep":
+			return new SimpleGrep(this, args);
+		case "ls":
+			return new ListFiles(this, args);
+		case "rgrep":
+			return new RegexGrep(this, args);
+		case "sort":
+			return new Sort(this, args);
+		case "head":
+			return new Head(this, args);
+		case "tail":
+			return new Tail(this, args);
+		case "set":
+			return new SetVar(this, args);
 		default:
 			throw new RuntimeException("No such program: " + name);
 		}
